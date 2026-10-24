@@ -1,0 +1,75 @@
+/* io-charts: tokens by role, so light/dark swap in one place. */
+.io-chart {
+    --io-chart-surface: #fcfcfb;
+    --io-chart-text: #52514e;
+    --io-chart-muted: #898781;
+    --io-chart-grid: #e1e0d9;
+    --io-chart-axis: #c3c2b7;
+    --io-chart-border: rgba(11, 11, 11, 0.10);
+    --io-chart-series-1: #2a78d6; --io-chart-series-2: #eb6834; --io-chart-series-3: #1baf7a; --io-chart-series-4: #eda100;
+    --io-chart-series-5: #e87ba4; --io-chart-series-6: #008300; --io-chart-series-7: #4a3aa7; --io-chart-series-8: #e34948;
+    margin: 0 0 24px; padding: 0; color: var(--io-chart-text);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 14px;
+}
+@media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .io-chart {
+        --io-chart-surface: #1a1a19; --io-chart-text: #c3c2b7; --io-chart-muted: #898781;
+        --io-chart-grid: #2c2c2a; --io-chart-axis: #383835; --io-chart-border: rgba(255, 255, 255, 0.10);
+        --io-chart-series-1: #3987e5; --io-chart-series-2: #d95926; --io-chart-series-3: #199e70; --io-chart-series-4: #c98500;
+        --io-chart-series-5: #d55181; --io-chart-series-6: #008300; --io-chart-series-7: #9085e9; --io-chart-series-8: #e66767;
+    }
+}
+:root[data-theme="dark"] .io-chart {
+    --io-chart-surface: #1a1a19; --io-chart-text: #c3c2b7; --io-chart-muted: #898781;
+    --io-chart-grid: #2c2c2a; --io-chart-axis: #383835; --io-chart-border: rgba(255, 255, 255, 0.10);
+    --io-chart-series-1: #3987e5; --io-chart-series-2: #d95926; --io-chart-series-3: #199e70; --io-chart-series-4: #c98500;
+    --io-chart-series-5: #d55181; --io-chart-series-6: #008300; --io-chart-series-7: #9085e9; --io-chart-series-8: #e66767;
+}
+
+.io-chart-title { font-weight: 600; margin: 0 0 8px; color: var(--io-chart-text); }
+.io-chart-plot { position: relative; }
+.io-chart-svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.io-chart-svg text { font-family: inherit; font-size: 12px; font-variant-numeric: tabular-nums; }
+.io-chart-grid { stroke: var(--io-chart-grid); }
+.io-chart-axis, .io-chart-crosshair { stroke: var(--io-chart-axis); }
+.io-chart-tick { fill: var(--io-chart-muted); }
+.io-chart-label { fill: var(--io-chart-text); font-weight: 600; }
+
+.io-chart-series-1 { --io-series: var(--io-chart-series-1); } .io-chart-series-2 { --io-series: var(--io-chart-series-2); }
+.io-chart-series-3 { --io-series: var(--io-chart-series-3); } .io-chart-series-4 { --io-series: var(--io-chart-series-4); }
+.io-chart-series-5 { --io-series: var(--io-chart-series-5); } .io-chart-series-6 { --io-series: var(--io-chart-series-6); }
+.io-chart-series-7 { --io-series: var(--io-chart-series-7); } .io-chart-series-8 { --io-series: var(--io-chart-series-8); }
+.io-chart-bar { fill: var(--io-series); transition: filter 120ms; }
+.io-chart-line { stroke: var(--io-series); fill: none; }
+.io-chart-marker { fill: var(--io-series); stroke: var(--io-chart-surface); }
+.io-chart-key rect, .io-chart-key circle { fill: var(--io-series); }
+.io-chart-key line { stroke: var(--io-series); }
+.io-chart-mark.is-active, .io-chart-marker.is-active { filter: brightness(1.12); }
+.io-chart-marker.is-active { r: 6; }
+.io-chart-crosshair { visibility: hidden; }
+.io-chart-crosshair.is-active { visibility: visible; }
+.io-chart-hit { fill: transparent; outline: none; cursor: default; }
+.io-chart-hit:focus-visible { stroke: var(--io-chart-series-1); stroke-width: 1; stroke-dasharray: 2 2; }
+
+.io-chart-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 8px 0 0; padding: 0; font-size: 13px; }
+.io-chart-legend li { display: inline-flex; align-items: center; gap: 6px; }
+
+.io-chart-details { margin-top: 8px; font-size: 13px; }
+.io-chart-details summary { cursor: pointer; color: var(--io-chart-muted); }
+.io-chart-table { border-collapse: collapse; margin-top: 8px; font-variant-numeric: tabular-nums; }
+.io-chart-table caption { text-align: left; font-weight: 600; padding: 4px 0; }
+.io-chart-table th, .io-chart-table td { padding: 4px 10px; border-bottom: 1px solid var(--io-chart-grid); text-align: right; }
+.io-chart-table th[scope="row"], .io-chart-table thead th:first-child { text-align: left; }
+
+.io-chart-tooltip {
+    position: absolute; pointer-events: none; z-index: 2; min-width: 120px;
+    background: var(--io-chart-surface); color: var(--io-chart-text); border: 1px solid var(--io-chart-border);
+    border-radius: 6px; padding: 8px 10px; font-size: 13px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.io-chart-tooltip[hidden] { display: none; }
+.io-chart-tooltip-label { color: var(--io-chart-muted); margin-bottom: 4px; }
+.io-chart-tooltip-row { display: flex; align-items: center; gap: 8px; }
+.io-chart-tooltip-row strong { font-variant-numeric: tabular-nums; }
+.io-chart-tooltip-row span:last-child { color: var(--io-chart-muted); }
+.io-chart-tooltip-key { display: inline-block; width: 14px; height: 0; border-top: 2px solid var(--io-series); }
+.io-chart-bar .io-chart-tooltip-key { width: 10px; height: 10px; border: 0; border-radius: 2px; background: var(--io-series); }
